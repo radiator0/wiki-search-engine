@@ -5,10 +5,10 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import SearchIcon from "@material-ui/icons/Search";
 import Button from "@material-ui/core/Button/Button";
-import { getMatchingPages } from "../store/query/actions";
+import { getMatchingPages } from "../../store/query/actions";
 import { connect } from "react-redux";
-import { IRootState } from "../store";
-import { IPage } from "../models/page.model";
+import { IRootState } from "../../store";
+import { IPage } from "../../models/page.model";
 
 export interface ISearchProps extends StateProps, DispatchProps {}
 
