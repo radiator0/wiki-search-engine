@@ -8,7 +8,11 @@
 }
 
 .loadingBar {
-  background-color: rgb(112, 248, 237);
-  height: 3px;
+  background-color: #f50057;
+  min-height: 3px;
   position: "relative";
+}
+
+#loadingBar {
+  min-height: 3px;
 }
