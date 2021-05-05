@@ -1,11 +1,13 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Wiki search engine
 
 ## First time?
 
 ### Run `npm install` inside 'frontend' directory
 
-## Then
+### Install json-server by `npm install -g json-server` command
 
-### `npm start`
+## Then run
+
+### `json-server test.json --port=4000`
+
+### `npm start` inside 'frontend' directory

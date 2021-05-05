@@ -1,7 +1,14 @@
 .App {
   text-align: center;
+  margin: 0 auto;
 }
 
 .App-link {
   color: #61dafb;
+}
+
+.loadingBar {
+  background-color: rgb(112, 248, 237);
+  height: 3px;
+  position: "relative";
 }
