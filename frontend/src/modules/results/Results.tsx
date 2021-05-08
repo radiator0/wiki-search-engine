@@ -15,7 +15,7 @@ export default function Results() {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
 	};
-	
+
 	return (
 		<React.Fragment>
 			<ResultList results={results.slice(page * rowsPerPage, Math.min(page * rowsPerPage + rowsPerPage, results.length))}></ResultList>
