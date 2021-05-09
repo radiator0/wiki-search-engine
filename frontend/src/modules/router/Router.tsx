@@ -12,7 +12,7 @@ class Router extends Component {
         <Switch>
           <Route exact path="/" component={Search} />
           <Route exact path="/results" component={Results} />
-          <Route exact path="/page/:id" component={ResultVisualisation} />
+          <Route exact path="/page/:title" component={ResultVisualisation} />
           {/* <Route path="/translator" component={Translator} />
             <Route exact path="/exercises" component={ExercisesList} /> */}
         </Switch>
