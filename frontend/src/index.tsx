@@ -6,6 +6,7 @@ import App from "./modules/app/App";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import store from "./store";
+import "@fontsource/roboto";
 
 ReactDOM.render(
   <Provider store={store}>
