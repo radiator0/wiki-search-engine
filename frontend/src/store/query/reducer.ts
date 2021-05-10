@@ -1,12 +1,12 @@
 import { ACTION_TYPES,  IQueryState } from './types';
 const init: IQueryState = {
     page: {},
-    pages: []
+    pagesPrompt: []
 };
 
 export function queryReducer(state: IQueryState = init, action): IQueryState {
     if(action.type === ACTION_TYPES.GET_PAGE){
-        var data = action.payload.data
+        let data = action.payload.data
         return Object.assign({}, state, {
             page: data?.hits?.hits?.length > 0
             ? {
@@ -16,9 +16,15 @@ export function queryReducer(state: IQueryState = init, action): IQueryState {
             : null
         });
     }
-    else if(action.type === ACTION_TYPES.GET_MATCHING_PAGES){
+    else if(action.type === ACTION_TYPES.GET_MATCHING_PAGES_PROMPTING){
+        let data = action.payload.data
         return Object.assign({}, state, {
-            pages: action.payload.data
+            pagesPrompt: data?.hits?.hits?.length > 0 ? data.hits.hits.map(hit => hit._source) : [] 
+        });
+    }
+    else if(action.type === ACTION_TYPES.RESET){
+        return Object.assign({}, state, {
+            pagesPrompt: []
         });
     }
     return state;

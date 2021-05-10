@@ -47,7 +47,10 @@ const CustomAccordionSummary = withStyles({
 class Search extends Component<ISearchProps, ISearchStates> {
   handleInputChange(event) {
     const { getMatchingPages } = this.props;
-    getMatchingPages(event.target.value);
+    const val = event.target.value;
+    if (val) {
+      getMatchingPages(val);
+    }
   }
 
   handleToggleAdvancedSearch() {
@@ -64,7 +67,7 @@ class Search extends Component<ISearchProps, ISearchStates> {
   }
 
   render() {
-    const { pages } = this.props;
+    const { pagesPrompt } = this.props;
     const { isAdvancedSearchExpanded } = this.state;
     return (
       <Grid container spacing={3}>
@@ -74,7 +77,7 @@ class Search extends Component<ISearchProps, ISearchStates> {
             freeSolo
             id="search-autocomplete"
             disableClearable
-            options={pages.map((page: IPage) => page.title)}
+            options={pagesPrompt.map((page: IPage) => page.title)}
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -127,7 +130,7 @@ class Search extends Component<ISearchProps, ISearchStates> {
 }
 
 const mapStateToProps = ({ query }: IRootState) => ({
-  pages: query.pages,
+  pagesPrompt: query.pagesPrompt,
 });
 
 const mapDispatchToProps = {
