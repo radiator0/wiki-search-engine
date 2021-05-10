@@ -5,18 +5,24 @@ import wtf from "wtf_wikipedia";
 import wtf_html from "wtf-plugin-html";
 import DOMPurify from "dompurify";
 import { Button, createStyles, makeStyles, Theme } from "@material-ui/core";
-import { getPageByTitle } from "../../elastic/Functions";
 import Typography from "@material-ui/core/Typography/Typography";
 import Paper from "@material-ui/core/Paper/Paper";
 import Box from "@material-ui/core/Box/Box";
 import Grid from "@material-ui/core/Grid/Grid";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { getPageByTitle } from "../../store/query/actions";
+import { connect } from "react-redux";
+import { IRootState } from "../../store";
+import { IPage } from "../../models/page.model";
 
 interface IMatchParams {
   title: string;
 }
 
-interface IResultVisualisationProps extends RouteComponentProps<IMatchParams> {}
+interface IResultVisualisationProps extends RouteComponentProps<IMatchParams> {
+  page: IPage;
+  dispatch;
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,11 +32,14 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function ResultVisualisation(props: IResultVisualisationProps) {
-  const [page, setPage] = React.useState({ title: "", text: "" });
+function ResultVisualisation(props: IResultVisualisationProps) {
+  // const [page, setPage] = React.useState({ title: "", text: "" });
+  const page = props.page;
   const classes = useStyles();
   useEffect(() => {
-    getPageByTitle(props.match.params.title.replaceAll("_", " ")).then(setPage);
+    props.dispatch(
+      getPageByTitle(props.match.params.title.replaceAll("_", " "))
+    );
   }, [props.match.params.title]);
 
   wtf.extend(wtf_html);
@@ -53,7 +62,7 @@ export default function ResultVisualisation(props: IResultVisualisationProps) {
               </Grid>
               <Grid item xs={6}>
                 <div className={classes.root}>
-                  {page?.text.length > 0 ? (
+                  {page.text && page?.text?.length > 0 ? (
                     <Button
                       variant="contained"
                       color="primary"
@@ -62,9 +71,7 @@ export default function ResultVisualisation(props: IResultVisualisationProps) {
                     >
                       Przejdź do oryginału
                     </Button>
-                  ) : (
-                    <></>
-                  )}
+                  ) : null}
                 </div>
               </Grid>
             </Grid>
@@ -79,3 +86,9 @@ export default function ResultVisualisation(props: IResultVisualisationProps) {
     </>
   );
 }
+
+function mapStateToProps({ query }: IRootState) {
+  return { page: query.page };
+}
+
+export default connect(mapStateToProps)(ResultVisualisation);
