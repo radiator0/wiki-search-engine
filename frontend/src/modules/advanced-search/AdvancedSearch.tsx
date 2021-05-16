@@ -9,6 +9,7 @@ import AdvancedFormGroup from "./components/AdvancedFormGroup";
 import "./AdvancedSearch.css";
 import AdvancedCategories from "./components/AdvancedCategories";
 import { Grid } from "@material-ui/core";
+import AdvancedEditDate from "./components/AdvancedEditDate";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,6 +38,10 @@ const getInitValues: () => IAdvancedSearchForm = () => ({
       },
     },
   ],
+  editDate: {
+    from: undefined,
+    to: undefined,
+  },
   categories: [
     {
       value: "",
@@ -80,6 +85,13 @@ const AdvancedSearch = () => {
           items={values.content}
           handleChange={handleChange}
           setFieldValue={setFieldValue}
+        />
+        <Grid item xs={1} />
+        <AdvancedEditDate
+          editDate={values.editDate}
+          groupName="Data edycji"
+          setFieldValue={setFieldValue}
+          name="editDate"
         />
         <Grid item xs={1} />
       </Grid>

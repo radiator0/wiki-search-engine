@@ -16,8 +16,8 @@ export interface IFieldOperator {
 }
 
 export interface IEditDate {
-  from: Date;
-  to: Date;
+  from?: Date;
+  to?: Date;
 }
 
 export interface ICategory {
@@ -29,7 +29,7 @@ export interface ICategory {
 export interface IAdvancedSearchForm {
   title?: IFieldOperator[];
   content?: IFieldOperator[];
-  // editDate?: IEditDate,
+  editDate?: IEditDate;
   categories?: ICategory[];
 }
 
