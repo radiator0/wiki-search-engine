@@ -31,7 +31,7 @@ const AdvancedSubcategoryCombo = ({
   const dispatch = useDispatch();
 
   const options = categoriesPrompt[categoryName]
-    ? categoriesPrompt[categoryName]
+    ? categoriesPrompt[categoryName].map((s: string) => s.toLowerCase()).sort()
     : [];
 
   return (

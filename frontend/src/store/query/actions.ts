@@ -62,7 +62,7 @@ export function getMatchingCategories(categoryPattern: string) {
 
     return axios
       .get<IJsonCategory[]>(
-        `${jsonServerUrl}/categories?name_like=${categoryPattern}`
+        `${jsonServerUrl}/categories?name_like=${categoryPattern}&_sort=name`
       )
       .then((json) => {
         dispatch({
@@ -80,7 +80,9 @@ export function getCategoryAttributes(categoryName: string) {
     dispatch(showLoading());
 
     return axios
-      .get<IJsonCategory[]>(`${jsonServerUrl}/categories?name=${categoryName}`)
+      .get<IJsonCategory[]>(
+        `${jsonServerUrl}/categories?name=${categoryName}&_sort=name`
+      )
       .then((json) => {
         dispatch({
           type: ACTION_TYPES.GET_CATEGORY_ATTRIBUTES_PROMPT,

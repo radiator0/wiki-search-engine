@@ -10,6 +10,7 @@ import "./AdvancedSearch.css";
 import AdvancedCategories from "./components/AdvancedCategories";
 import { Grid } from "@material-ui/core";
 import AdvancedEditDate from "./components/AdvancedEditDate";
+import { queryParser } from "./utils/query-parser";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -65,7 +66,9 @@ const AdvancedSearch = () => {
 
   const { handleSubmit, values, handleChange, setFieldValue } = useFormik({
     initialValues: getInitValues(),
-    onSubmit: (values) => alert(JSON.stringify(values, null, 2)),
+    onSubmit: (values) => {
+      alert(JSON.stringify(queryParser(values), null, 2));
+    },
   });
 
   return (
