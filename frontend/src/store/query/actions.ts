@@ -41,6 +41,7 @@ export function getPageByTitle(title: string) {
 }
 
 export function getMatchingPages(titlePattern: string) {
+  titlePattern = titlePattern.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
   return function (dispatch) {
     dispatch(resetLoading());
     dispatch(showLoading());
