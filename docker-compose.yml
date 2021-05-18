@@ -17,7 +17,7 @@ services:
     backend:
         image: clue/json-server
         ports: 
-            - "80:80"
+            - "80:4000"
         volumes:
             - ./categories.json:/data/db.json
           
