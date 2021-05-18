@@ -21,7 +21,7 @@ import IconButton from "@material-ui/core/IconButton/IconButton";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import { CheckboxType } from "../../models/checkbox-type.enum";
-import esb from "elastic-builder";
+import esb, { requestBodySearch } from "elastic-builder";
 import Results from "../results/Results";
 
 export interface ISearchProps extends StateProps, DispatchProps {}
@@ -31,6 +31,7 @@ export interface ISearchStates {
   checkedArticles: boolean;
   checkedDiscussion: boolean;
   checkedHelp: boolean;
+  searchingTextBox: string;
 }
 
 const CustomAccordionSummary = withStyles({
@@ -54,6 +55,21 @@ class Search extends Component<ISearchProps, ISearchStates> {
   handleInputChange(event) {
     const { getMatchingPages } = this.props;
     const val = event.target.value;
+    this.setState({
+      ...this.state,
+      searchingTextBox: val,
+    });
+    if (val) {
+      getMatchingPages(val);
+    }
+    console.log(val);
+  }
+
+  handleInputChangeDropdown(val) {
+    this.setState({
+      ...this.state,
+      searchingTextBox: val ? val : "",
+    });
     if (val) {
       getMatchingPages(val);
     }
@@ -115,6 +131,7 @@ class Search extends Component<ISearchProps, ISearchStates> {
       checkedArticles: true,
       checkedDiscussion: false,
       checkedHelp: false,
+      searchingTextBox: "",
     };
   }
 
@@ -135,6 +152,9 @@ class Search extends Component<ISearchProps, ISearchStates> {
             id="search-autocomplete"
             disableClearable
             options={pagesPrompt.map((page: IPage) => page.title)}
+            onChange={(event: any, newValue: string | null) => {
+              this.handleInputChangeDropdown(newValue);
+            }}
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -188,6 +208,15 @@ class Search extends Component<ISearchProps, ISearchStates> {
                 color="primary"
                 size="large"
                 type="submit"
+                onClick={() =>
+                  this.searchForResults(
+                    esb
+                      .requestBodySearch()
+                      .query(
+                        esb.simpleQueryStringQuery(this.state.searchingTextBox)
+                      )
+                  )
+                }
                 startIcon={<SearchIcon style={{ fontSize: 26 }} />}
               >
                 Wyszukaj
