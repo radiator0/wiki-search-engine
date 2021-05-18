@@ -5,6 +5,8 @@ const init: IQueryState = {
   pagesPrompt: [],
   categoriesPrompt: [],
   categoriesAttributePrompt: {},
+  results: [],
+  advancedForm: {},
 };
 
 export function queryReducer(state: IQueryState = init, action): IQueryState {
@@ -16,6 +18,9 @@ export function queryReducer(state: IQueryState = init, action): IQueryState {
           ? {
               title: data.hits.hits[0]._source.title,
               ...data.hits.hits[0]._source.revision,
+              text: data.hits.hits[0]._source.revision.text._
+                ? data.hits.hits[0]._source.revision.text._
+                : data.hits.hits[0]._source.revision.text,
             }
           : null,
     });
@@ -52,6 +57,29 @@ export function queryReducer(state: IQueryState = init, action): IQueryState {
         [category.name]: category.attributes,
       },
     };
+  } else if (action.type === ACTION_TYPES.GET_RESULTS) {
+    const results = action.payload;
+
+    return {
+      ...state,
+      results:
+        results?.hits?.hits?.length > 0
+          ? results.hits.hits.map(
+              ({ _source }: { _source: { title: string; revision: any } }) => ({
+                title: _source.title,
+                ..._source.revision,
+                text: _source.revision.text._
+                  ? _source.revision.text._
+                  : _source.revision.text,
+              })
+            )
+          : [],
+    } as IQueryState;
+  } else if (action.type === ACTION_TYPES.SAVE_FORM) {
+    return {
+      ...state,
+      advancedForm: action.payload,
+    } as IQueryState;
   }
   return state;
 }

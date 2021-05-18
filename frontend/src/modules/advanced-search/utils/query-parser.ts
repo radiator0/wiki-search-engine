@@ -96,6 +96,10 @@ const handleCategories = (
   categories?.forEach(({ operator, subcategories, value }) => {
     const auxQuery = esb.boolQuery();
 
+    if (!value) {
+      return;
+    }
+
     handleFieldOperator(auxQuery, SUBCATEGORY, subcategories);
 
     if (operator === null || operator) {
@@ -122,7 +126,7 @@ const queryParser = (form: IAdvancedSearchForm) => {
     fn(form, boolQuery)
   );
 
-  return boolQuery.toJSON();
+  return boolQuery;
 };
 
 export { queryParser };

@@ -4,19 +4,26 @@ import "./SearchCheckboxes.css";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import { CheckboxType } from "../../../models/checkbox-type.enum";
 
-class SearchCheckboxes extends Component {
+interface ISearchCheckboxesProps {
+  checkedArticles: boolean;
+  checkedDiscussion: boolean;
+  checkedHelp: boolean;
+  toggleCheck: (type: CheckboxType) => void;
+}
+
+class SearchCheckboxes extends Component<ISearchCheckboxesProps, {}> {
   render() {
     return (
       <FormGroup row>
         <FormControlLabel
           control={
             <Checkbox
-              //   checked={state.checkedA}
-              //   onChange={handleChange}
+              checked={this.props.checkedArticles}
+              onChange={() => this.props.toggleCheck(CheckboxType.ARTICLE)}
               name="primary"
               color="primary"
-              checked={true}
             />
           }
           label="Artykuły"
@@ -24,8 +31,8 @@ class SearchCheckboxes extends Component {
         <FormControlLabel
           control={
             <Checkbox
-              //   checked={state.checkedB}
-              //   onChange={handleChange}
+              checked={this.props.checkedDiscussion}
+              onChange={() => this.props.toggleCheck(CheckboxType.DISCUSSION)}
               name="checkedB"
               color="secondary"
             />
@@ -36,8 +43,8 @@ class SearchCheckboxes extends Component {
         <FormControlLabel
           control={
             <Checkbox
-              //   checked={state.checkedC}
-              //   onChange={handleChange}
+              checked={this.props.checkedHelp}
+              onChange={() => this.props.toggleCheck(CheckboxType.HELP)}
               name="checkedC"
               color="secondary"
             />

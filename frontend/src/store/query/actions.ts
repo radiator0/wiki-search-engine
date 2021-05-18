@@ -9,7 +9,8 @@ import { IPage } from "../../models/page.model";
 import cfg from "../../config/default.json";
 import { IJsonCategory } from "../../models/json-category.model";
 import { Dispatch } from "redux";
-import { type } from "os";
+import esb from "elastic-builder";
+import { IAdvancedSearchForm } from "../../models/advance-search.model";
 
 const elasticUrl = "http://" + cfg.elastic.host + ":" + cfg.elastic.port;
 const jsonServerUrl = `http://${cfg.jsonServer.host}:${cfg.jsonServer.port}`;
@@ -90,5 +91,25 @@ export function getCategoryAttributes(categoryName: string) {
         });
         dispatch(hideLoading());
       });
+  };
+}
+
+export function getResults(query: esb.RequestBodySearch) {
+  return function (dispatch: Dispatch) {
+    dispatch(resetLoading());
+    dispatch(showLoading());
+
+    return axios
+      .post<IPage>(elasticUrl + `/_search`, query.size(1000).toJSON())
+      .then((json) => {
+        dispatch({ type: ACTION_TYPES.GET_RESULTS, payload: json.data });
+        dispatch(hideLoading());
+      });
+  };
+}
+
+export function saveForm(form: IAdvancedSearchForm) {
+  return function (dispatch: Dispatch) {
+    dispatch({ type: ACTION_TYPES.SAVE_FORM, payload: form });
   };
 }

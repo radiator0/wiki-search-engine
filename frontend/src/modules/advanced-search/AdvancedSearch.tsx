@@ -8,9 +8,23 @@ import AdvancedFormGroup from "./components/AdvancedFormGroup";
 
 import "./AdvancedSearch.css";
 import AdvancedCategories from "./components/AdvancedCategories";
-import { Grid } from "@material-ui/core";
+import { Grid, Box } from "@material-ui/core";
 import AdvancedEditDate from "./components/AdvancedEditDate";
 import { queryParser } from "./utils/query-parser";
+import { Search as SearchIcon } from "@material-ui/icons";
+import esb, { statsAggregation } from "elastic-builder";
+import { useSelector, useDispatch } from "react-redux";
+import { IRootState } from "../../store";
+import { saveForm } from "../../store/query/actions";
+
+interface IAdvancedSearchProps {
+  searchCheckbox: {
+    checkedArticles: boolean;
+    checkedDiscussion: boolean;
+    checkedHelp: boolean;
+  };
+  getResults: (q: esb.RequestBodySearch) => void;
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -61,14 +75,18 @@ const getInitValues: () => IAdvancedSearchForm = () => ({
   ],
 });
 
-const AdvancedSearch = () => {
+const AdvancedSearch = ({
+  searchCheckbox,
+  getResults,
+}: IAdvancedSearchProps) => {
   const classes = useStyles();
+  const initValues = useSelector(({ query }): IRootState => query.advancedForm);
+  const dispatch = useDispatch();
 
   const { handleSubmit, values, handleChange, setFieldValue } = useFormik({
-    initialValues: getInitValues(),
-    onSubmit: (values) => {
-      alert(JSON.stringify(queryParser(values), null, 2));
-    },
+    initialValues:
+      Object.keys(initValues).length !== 0 ? initValues : getInitValues(),
+    onSubmit: () => {},
   });
 
   return (
@@ -104,9 +122,27 @@ const AdvancedSearch = () => {
         name="categories"
         setFieldValue={setFieldValue}
       />
-      <Button color="secondary" variant="contained" fullWidth type="submit">
-        Show
-      </Button>
+      <Box p={2}>
+        <Button
+          id="search-button"
+          variant="contained"
+          color="primary"
+          size="large"
+          onClick={() => {
+            const q = queryParser(values);
+
+            console.log(
+              JSON.stringify(esb.requestBodySearch().query(q).toJSON(), null, 2)
+            );
+
+            dispatch(saveForm(values));
+            getResults(esb.requestBodySearch().query(q));
+          }}
+          startIcon={<SearchIcon style={{ fontSize: 26 }} />}
+        >
+          Wyszukaj
+        </Button>
+      </Box>
     </form>
   );
 };

@@ -75,7 +75,7 @@ const AdvancedCategories = ({
     <Grid className={classes.categories} container spacing={1}>
       {categories &&
         categories.map((category, index) => (
-          <>
+          <React.Fragment key={index}>
             {index !== 0 && (
               <AdvancedOpertor
                 index={index}
@@ -125,7 +125,7 @@ const AdvancedCategories = ({
                 )}
               </Grid>
             </Grid>
-          </>
+          </React.Fragment>
         ))}
     </Grid>
   );

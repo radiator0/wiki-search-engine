@@ -31,7 +31,7 @@ export default function ResultList(props: IResultListProps) {
   return (
     <List className={classes.root}>
       {props.results.map((r) => (
-        <React.Fragment>
+        <React.Fragment key={r.id}>
           <ResultElement
             id={r.id}
             title={r.title}

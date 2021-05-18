@@ -37,7 +37,7 @@ export default function ResultElement(props: IResultElementProps) {
               className={classes.inline}
               color="textPrimary"
             ></Typography>
-            {props.text}
+            {props.text?.slice(0, 1000)}
           </React.Fragment>
         }
       />
