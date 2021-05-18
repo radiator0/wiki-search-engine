@@ -4,6 +4,8 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
 import { IPage } from "../../models/page.model";
+import wtf from "wtf_wikipedia";
+import moment from "moment";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,7 +30,20 @@ export default function ResultElement(props: IResultElementProps) {
   return (
     <ListItem key={props.id} alignItems="flex-start" className={classes.root}>
       <ListItemText
-        primary={<a href={"./page/" + props.title}>{props.title}</a>}
+        primary={
+          <>
+            <a
+              href={"./page/" + props.title}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {props.title}
+            </a>
+            <Typography variant="caption">
+              {" " + moment(props.timestamp).format("DD.MM.YYYY HH:mm:ss")}
+            </Typography>
+          </>
+        }
         secondary={
           <React.Fragment>
             <Typography
@@ -37,7 +52,7 @@ export default function ResultElement(props: IResultElementProps) {
               className={classes.inline}
               color="textPrimary"
             ></Typography>
-            {props.text}
+            {props.text ? wtf(props?.text).text().slice(0, 1000) : null}
           </React.Fragment>
         }
       />

@@ -40,6 +40,7 @@ function ResultVisualisation(props: IResultVisualisationProps) {
     props.dispatch(
       getPageByTitle(props.match.params.title.replaceAll("_", " "))
     );
+    document.title = props.match.params.title.replaceAll("_", " ");
   }, [props.match.params.title]);
 
   wtf.extend(wtf_html);

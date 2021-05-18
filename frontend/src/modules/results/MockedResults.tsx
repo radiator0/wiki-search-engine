@@ -1,4 +1,4 @@
-const results = [
+const mockResults = [
   {
     id: 1,
     title: "Minecraft",
@@ -97,4 +97,4 @@ const results = [
   },
 ];
 
-export default results;
+export default mockResults;
