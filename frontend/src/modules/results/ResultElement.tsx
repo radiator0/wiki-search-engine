@@ -29,7 +29,15 @@ export default function ResultElement(props: IResultElementProps) {
   return (
     <ListItem key={props.id} alignItems="flex-start" className={classes.root}>
       <ListItemText
-        primary={<a href={"./page/" + props.title}>{props.title}</a>}
+        primary={
+          <a
+            href={"./page/" + props.title}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {props.title}
+          </a>
+        }
         secondary={
           <React.Fragment>
             <Typography
@@ -38,7 +46,7 @@ export default function ResultElement(props: IResultElementProps) {
               className={classes.inline}
               color="textPrimary"
             ></Typography>
-            { props.text? wtf(props?.text).text().slice(0,1000) : null}
+            {props.text ? wtf(props?.text).text().slice(0, 1000) : null}
           </React.Fragment>
         }
       />
