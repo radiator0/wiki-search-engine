@@ -51,8 +51,10 @@ export default function ResultElement(props: IResultElementProps) {
               variant="body2"
               className={classes.inline}
               color="textPrimary"
-            ></Typography>
-            {props.text ? wtf(props?.text).text().slice(0, 1000) : null}
+            >
+              {typeof props.text === "string" &&
+                wtf(props?.text).text().slice(0, 1000)}
+            </Typography>
           </React.Fragment>
         }
       />

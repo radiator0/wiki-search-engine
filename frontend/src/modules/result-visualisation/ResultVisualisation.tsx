@@ -44,12 +44,13 @@ function ResultVisualisation(props: IResultVisualisationProps) {
   }, [props.match.params.title]);
 
   wtf.extend(wtf_html);
-  // @ts-ignore
-  let output = wtf(page?.text).html();
-  let outputFixedImages = output.replaceAll(
-    "wikipedia.org",
-    "pl.wikipedia.org"
-  );
+
+  let outputFixedImages = "";
+  if (typeof page?.text === "string") {
+    // @ts-ignore
+    let output = wtf(page?.text).html();
+    outputFixedImages = output.replaceAll("wikipedia.org", "pl.wikipedia.org");
+  }
   return (
     <>
       <Box mt={0} m={5} p={3} ml={35} mr={35} pt={0}>
