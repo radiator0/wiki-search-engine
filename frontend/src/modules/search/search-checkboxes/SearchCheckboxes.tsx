@@ -17,7 +17,7 @@ class SearchCheckboxes extends Component<ISearchCheckboxesProps, {}> {
   render() {
     return (
       <FormGroup row>
-        <FormControlLabel
+        {/* <FormControlLabel
           control={
             <Checkbox
               checked={this.props.checkedArticles}
@@ -50,7 +50,7 @@ class SearchCheckboxes extends Component<ISearchCheckboxesProps, {}> {
             />
           }
           label="Pomoc"
-        />
+        /> */}
       </FormGroup>
     );
   }
