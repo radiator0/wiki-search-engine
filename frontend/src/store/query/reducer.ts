@@ -71,6 +71,7 @@ export function queryReducer(state: IQueryState = init, action): IQueryState {
                 text: _source.revision.text._
                   ? _source.revision.text._
                   : _source.revision.text,
+                timestamp: _source.revision.timestamp
               })
             )
           : [],

@@ -36,6 +36,7 @@ export default function ResultList(props: IResultListProps) {
             id={r.id}
             title={r.title}
             text={r.text}
+            timestamp={r.timestamp}
             onClick={onResultSelected}
           ></ResultElement>
           <Divider variant="fullWidth" component="li" />
