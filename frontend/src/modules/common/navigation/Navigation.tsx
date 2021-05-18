@@ -10,16 +10,22 @@ import MailIcon from "@material-ui/icons/Mail";
 function Navigation() {
   return (
     <List>
-      {["Wyszukiwarka", "O autorach", "Inne", "Jeszcze inne"].map(
-        (text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        )
-      )}
+      <ListItem className="leftmenu" button>
+        <ListItemIcon>
+          <InboxIcon />
+        </ListItemIcon>
+        <a href="/">
+          <ListItemText primary={"Wyszukiwarka"} />
+        </a>
+      </ListItem>
+      <ListItem className="leftmenu" button>
+        <ListItemIcon>
+          <MailIcon />
+        </ListItemIcon>
+        <a href="https://github.com/radiator0/wiki-search-engine">
+          <ListItemText primary={"Kontakt"} />
+        </a>
+      </ListItem>
     </List>
   );
 }
