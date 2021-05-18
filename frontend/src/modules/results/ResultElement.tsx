@@ -4,6 +4,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
 import { IPage } from "../../models/page.model";
+import wtf from "wtf_wikipedia";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,7 +38,7 @@ export default function ResultElement(props: IResultElementProps) {
               className={classes.inline}
               color="textPrimary"
             ></Typography>
-            {props.text?.slice(0, 1000)}
+            { props.text? wtf(props?.text).text().slice(0,1000) : null}
           </React.Fragment>
         }
       />
