@@ -83,6 +83,7 @@ const AdvancedCategories = ({
                 operator={category.operator}
                 setFieldValue={setFieldValue}
                 toggleTitle="Operator łączący kategorie"
+                disableAnd={true}
               />
             )}
             <Grid item key={index} container>

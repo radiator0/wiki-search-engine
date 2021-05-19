@@ -10,6 +10,7 @@ interface IAdvancedOperatorProps {
   operator: boolean | null;
   setFieldValue: SetFieldValue;
   toggleTitle?: string;
+  disableAnd?: boolean;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -30,6 +31,7 @@ const AdvancedOpertor = ({
   operator,
   setFieldValue,
   toggleTitle = "",
+  disableAnd = false,
 }: IAdvancedOperatorProps) => {
   const classes = useStyles();
   return (
@@ -44,7 +46,7 @@ const AdvancedOpertor = ({
             setFieldValue(`${name}[${index}].operator`, value)
           }
         >
-          <ToggleButton value={true}>Oraz</ToggleButton>
+          {!disableAnd ?? <ToggleButton value={true}>Oraz</ToggleButton>}
           <ToggleButton value={false}>Lub</ToggleButton>
         </ToggleButtonGroup>
       </AdvancedTooltip>

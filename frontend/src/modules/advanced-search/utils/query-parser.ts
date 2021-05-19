@@ -93,6 +93,8 @@ const handleCategories = (
   { categories }: IAdvancedSearchForm,
   query: esb.BoolQuery
 ) => {
+  let prev: esb.BoolQuery | null = null;
+
   categories?.forEach(({ operator, subcategories, value }) => {
     const auxQuery = esb.boolQuery();
 
@@ -102,20 +104,35 @@ const handleCategories = (
 
     handleFieldOperator(auxQuery, SUBCATEGORY, subcategories);
 
-    if (operator === null || operator) {
-      query.must(
-        esb.boolQuery().must(esb.matchQuery(CATEGORY, value)).must(auxQuery)
-      );
+    // if (operator === null || operator) {
+    //   query.must(
+    //     esb.boolQuery().must(esb.matchQuery(CATEGORY, value)).must(auxQuery)
+    //   );
+    //   return;
+    // }
+
+    if (!prev) {
+      prev = esb
+        .boolQuery()
+        .should(esb.matchPhraseQuery(CATEGORY, value))
+        .should(auxQuery);
+      query.must(prev);
       return;
     }
 
-    query.should(
-      esb.boolQuery().must(esb.matchQuery(CATEGORY, value)).must(auxQuery)
-    );
+    prev.should(esb.matchPhraseQuery(CATEGORY, value)).should(auxQuery);
 
-    // handleFieldOperator(query, CATEGORY, [
-    //   { operator, field: { includes: true, value } },
-    // ]);
+    // query.must(
+    //   esb.boolQuery().should(esb.matchQuery(CATEGORY, value)).should(auxQuery)
+    // );
+
+    // query.must(
+    //   esb
+    //     .boolQuery()
+    //     .should(
+    //       esb.boolQuery().must(esb.matchQuery(CATEGORY, value)).must(auxQuery)
+    //     )
+    // );
   });
 };
 
