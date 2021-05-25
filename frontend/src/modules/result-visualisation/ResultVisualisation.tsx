@@ -49,7 +49,10 @@ function ResultVisualisation(props: IResultVisualisationProps) {
   if (typeof page?.text === "string") {
     // @ts-ignore
     let output = wtf(page?.text).html();
-    outputFixedImages = output.replaceAll("wikipedia.org", "pl.wikipedia.org");
+    outputFixedImages = output
+      .replaceAll("wikipedia.org", "pl.wikipedia.org")
+      .replaceAll("Commons", "Inne")
+      .replaceAll("Category:", "Kategoria: ");
   }
   return (
     <>

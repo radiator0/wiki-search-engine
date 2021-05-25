@@ -33,8 +33,8 @@
     "typesafe-actions": "^5.1.0",
     "typescript": "^4.2.4",
     "web-vitals": "^1.1.1",
-    "wtf-plugin-html": "^0.2.1",
-    "wtf_wikipedia": "8.2.1"
+    "wtf-plugin-html": "^0.2.2",
+    "wtf_wikipedia": "9.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
