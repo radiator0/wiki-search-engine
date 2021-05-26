@@ -46,7 +46,7 @@ const AdvancedOpertor = ({
             setFieldValue(`${name}[${index}].operator`, value)
           }
         >
-          {!disableAnd ?? <ToggleButton value={true}>Oraz</ToggleButton>}
+          {!disableAnd && <ToggleButton value={true}>Oraz</ToggleButton>}
           <ToggleButton value={false}>Lub</ToggleButton>
         </ToggleButtonGroup>
       </AdvancedTooltip>

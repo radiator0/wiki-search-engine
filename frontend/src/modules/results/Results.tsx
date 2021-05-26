@@ -30,6 +30,20 @@ export default function Results({ results }: { results: IPage[] }) {
 
   return (
     <React.Fragment>
+      <TablePagination
+        component="div"
+        count={results.length}
+        page={page}
+        onChangePage={handleChangePage}
+        rowsPerPage={rowsPerPage}
+        onChangeRowsPerPage={handleChangeRowsPerPage}
+        labelRowsPerPage="Wyniki na stronie:"
+        labelDisplayedRows={({ from, to, count }) =>
+          `${from}-${to} z ${count !== -1 ? count : "więcej niż " + to}`
+        }
+        nextIconButtonText="Następna strona"
+        backIconButtonText="Poprzednia strona"
+      />
       <ResultList
         results={Array.from(new Set(results.map((r) => r.id)))
           .map((id) => results.find((r) => r.id === id))
@@ -49,6 +63,12 @@ export default function Results({ results }: { results: IPage[] }) {
         onChangePage={handleChangePage}
         rowsPerPage={rowsPerPage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
+        labelRowsPerPage="Wyniki na stronie:"
+        labelDisplayedRows={({ from, to, count }) =>
+          `${from}-${to} z ${count !== -1 ? count : "więcej niż " + to}`
+        }
+        nextIconButtonText="Następna strona"
+        backIconButtonText="Poprzednia strona"
       />
     </React.Fragment>
   );
